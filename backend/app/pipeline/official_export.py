@@ -39,6 +39,20 @@ def parse_val_uom(val_str: str) -> tuple:
         return match.group(1).strip(), match.group(2).strip()
     return val_str, ""
 
+def find_flexible_value(row: dict, keys: list, default: str = "") -> str:
+    row_lower = {}
+    for k, v in row.items():
+        k_clean = str(k).lower().replace("_", "").replace(" ", "").strip()
+        row_lower[k_clean] = v
+    for key in keys:
+        key_clean = str(key).lower().replace("_", "").replace(" ", "").strip()
+        if key_clean in row_lower:
+            val = row_lower[key_clean]
+            if val is not None and str(val).lower() not in ("nan", "none", "null", "<na>"):
+                return str(val).strip()
+    return default
+
+
 def create_unihack_row(norm_prod: dict, raw_input_row: dict = None, official_columns: list = None) -> dict:
     """
     Map an internal normalized product dictionary (and optional raw CSV row)
@@ -56,22 +70,27 @@ def create_unihack_row(norm_prod: dict, raw_input_row: dict = None, official_col
 
     # Map raw input columns directly if available
     raw = raw_input_row or {}
-    row["Mfg_Part_Num"] = raw.get("Mfg_Part_Num", norm_prod.get("sku") or "")
-    row["Part_Desc"] = raw.get("Part_Desc", norm_prod.get("description") or "")
-    row["E1_Brand"] = raw.get("E1_Brand", "-- Unbranded --")
-    row["Unilog_Brand"] = raw.get("Unilog_Brand", "-- No Unilog Brand --")
-    row["DIB_Brand"] = raw.get("DIB_Brand", "-- No DIB Brand --")
-    row["Part_Manuf"] = raw.get("Part_Manuf", norm_prod.get("manufacturer") or "")
+    
+    mfg_part_num = find_flexible_value(raw, ["Mfg_Part_Num", "PART_NUMBER", "SKU", "Part_Number", "Part_Num", "partno"]) or norm_prod.get("sku") or ""
+    part_desc = find_flexible_value(raw, ["Part_Desc", "Description", "Part_Description", "Desc"]) or norm_prod.get("description") or ""
+    part_manuf = find_flexible_value(raw, ["Part_Manuf", "Manufacturer", "Part_Manufacturer", "Manuf", "Brand", "Brand_Name"]) or norm_prod.get("manufacturer") or ""
+
+    row["Mfg_Part_Num"] = mfg_part_num
+    row["Part_Desc"] = part_desc
+    row["E1_Brand"] = find_flexible_value(raw, ["E1_Brand", "E1Brand", "E1 Brand"], "-- Unbranded --")
+    row["Unilog_Brand"] = find_flexible_value(raw, ["Unilog_Brand", "UnilogBrand", "Unilog Brand"], "-- No Unilog Brand --")
+    row["DIB_Brand"] = find_flexible_value(raw, ["DIB_Brand", "DIBBrand", "DIB Brand"], "-- No DIB Brand --")
+    row["Part_Manuf"] = part_manuf
 
     # Core Identifiers
-    row["PART_NUMBER"] = norm_prod.get("sku") or raw.get("Mfg_Part_Num", "")
-    row["SKU - MY_PART_NUMBER"] = norm_prod.get("sku") or raw.get("Mfg_Part_Num", "")
-    row["MANUFACTURER_NAME"] = norm_prod.get("manufacturer") or raw.get("Part_Manuf", "")
-    row["BRAND_NAME"] = norm_prod.get("manufacturer") or raw.get("Part_Manuf", "")
-    row["Product Name"] = norm_prod.get("productName") or raw.get("Part_Desc", "")
+    row["PART_NUMBER"] = norm_prod.get("sku") or mfg_part_num
+    row["SKU - MY_PART_NUMBER"] = norm_prod.get("sku") or mfg_part_num
+    row["MANUFACTURER_NAME"] = norm_prod.get("manufacturer") or part_manuf
+    row["BRAND_NAME"] = norm_prod.get("manufacturer") or part_manuf
+    row["Product Name"] = norm_prod.get("productName") or part_desc
 
     # Descriptions
-    desc = norm_prod.get("description") or raw.get("Part_Desc", "")
+    desc = norm_prod.get("description") or part_desc
     row["SHORT_DESC"] = desc[:100] if desc else ""
     row["MOBILE_DESC"] = desc[:250] if desc else ""
     row["INVOICE_DESC"] = desc[:100] if desc else ""

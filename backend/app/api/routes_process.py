@@ -281,21 +281,35 @@ def generate_catalog_sheet(
         )
 
 
+def find_flexible_value(row: dict, keys: list, default: str = "") -> str:
+    row_lower = {}
+    for k, v in row.items():
+        k_clean = str(k).lower().replace("_", "").replace(" ", "").strip()
+        row_lower[k_clean] = v
+    for key in keys:
+        key_clean = str(key).lower().replace("_", "").replace(" ", "").strip()
+        if key_clean in row_lower:
+            val = row_lower[key_clean]
+            if val is not None and str(val).lower() not in ("nan", "none", "null", "<na>"):
+                return str(val).strip()
+    return default
+
+
 def get_golden_row_extraction(row: dict) -> dict:
     """
     Return high-fidelity golden data mappings for demo catalog rows
     to avoid slow live calls during interactive judges' evaluation.
     """
-    part_num = str(row.get("Mfg_Part_Num", "")).lower()
-    desc = str(row.get("Part_Desc", "")).lower()
+    part_num = find_flexible_value(row, ["Mfg_Part_Num", "PART_NUMBER", "SKU", "Part_Number", "Part_Num", "partno"]).lower()
+    desc = find_flexible_value(row, ["Part_Desc", "Description", "Part_Description", "Desc"]).lower()
     
     if "dcb518" in part_num or "diablo" in desc:
         return {
             "productName": "Diablo Sanding Belt",
             "manufacturer": "Freud Inc",
             "category": "Sanding Belt",
-            "sku": row.get("Mfg_Part_Num"),
-            "description": row.get("Part_Desc"),
+            "sku": find_flexible_value(row, ["Mfg_Part_Num", "PART_NUMBER", "SKU", "Part_Number", "Part_Num", "partno"]),
+            "description": find_flexible_value(row, ["Part_Desc", "Description", "Part_Description", "Desc"]),
             "price": "Not available",
             "material": "Silicon Carbide",
             "dimensions": "1/2 in x 18 in",
@@ -325,8 +339,8 @@ def get_golden_row_extraction(row: dict) -> dict:
             "productName": f"3M 775L Stikit Film Disc {grit}",
             "manufacturer": "3M",
             "category": "Film Disc",
-            "sku": row.get("Mfg_Part_Num"),
-            "description": row.get("Part_Desc"),
+            "sku": find_flexible_value(row, ["Mfg_Part_Num", "PART_NUMBER", "SKU", "Part_Number", "Part_Num", "partno"]),
+            "description": find_flexible_value(row, ["Part_Desc", "Description", "Part_Description", "Desc"]),
             "price": "Not available",
             "material": "Cubitron II",
             "dimensions": "5 in",
@@ -410,9 +424,9 @@ async def process_bulk_csv(
     normalized_products = []
     
     for row in rows_to_process:
-        part_num = str(row.get("Mfg_Part_Num", ""))
-        desc = str(row.get("Part_Desc", ""))
-        manuf = str(row.get("Part_Manuf", ""))
+        part_num = find_flexible_value(row, ["Mfg_Part_Num", "PART_NUMBER", "SKU", "Part_Number", "Part_Num", "partno"])
+        desc = find_flexible_value(row, ["Part_Desc", "Description", "Part_Description", "Desc"])
+        manuf = find_flexible_value(row, ["Part_Manuf", "Manufacturer", "Part_Manufacturer", "Manuf", "Brand", "Brand_Name"])
         
         if config.DEMO_MODE:
             norm_prod = get_golden_row_extraction(row)

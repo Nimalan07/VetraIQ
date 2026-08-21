@@ -59,7 +59,7 @@ export default function Upload({
           throw new Error("Returned submission CSV is empty.");
         }
 
-        // Simple CSV parser that handles double quotes correctly
+        // Robust CSV parser that handles escaped double quotes ("") and leading/trailing whitespace correctly
         const parseCSVLine = (line: string): string[] => {
           const result: string[] = [];
           let current = "";
@@ -67,16 +67,27 @@ export default function Upload({
           
           for (let i = 0; i < line.length; i++) {
             const char = line[i];
+            
+            // Handle escaped quotes: "" inside a quoted field
+            if (char === '"' && i + 1 < line.length && line[i + 1] === '"') {
+              current += '"';
+              i++; // Skip the next quote character
+              continue;
+            }
+            
             if (char === '"') {
+              if (!inQuotes && current.trim() === "") {
+                current = ""; // Clear any leading whitespace before entering a quoted field
+              }
               inQuotes = !inQuotes;
             } else if (char === ',' && !inQuotes) {
-              result.push(current.replace(/^"|"$/g, ""));
+              result.push(current.trim());
               current = "";
             } else {
               current += char;
             }
           }
-          result.push(current.replace(/^"|"$/g, ""));
+          result.push(current.trim());
           return result;
         };
 
@@ -363,13 +374,17 @@ export default function Upload({
                     return (
                       <tr key={idx} className="hover:bg-white/[0.02] transition">
                         <td className="px-4 py-3 font-mono font-semibold text-orange">
-                          {row["Mfg_Part_Num"]}
+                          {row["PART_NUMBER"] || row["Mfg_Part_Num"] || row["SKU - MY_PART_NUMBER"] || "—"}
                         </td>
-                        <td className="px-4 py-3 truncate max-w-[200px]">{row["Product Name"]}</td>
-                        <td className="px-4 py-3">{row["Part_Manuf"]}</td>
+                        <td className="px-4 py-3 truncate max-w-[200px]">
+                          {row["Product Name"] || row["Part_Desc"] || "—"}
+                        </td>
+                        <td className="px-4 py-3">
+                          {row["Part_Manuf"] || row["MANUFACTURER_NAME"] || row["BRAND_NAME"] || "—"}
+                        </td>
                         <td className="px-4 py-3">
                           <span className="bg-orange/10 text-orange px-2 py-0.5 rounded text-[10px]">
-                            {row["Class"]}
+                            {row["Class"] || row["Fine"] || "—"}
                           </span>
                         </td>
                         <td className="px-4 py-3">
