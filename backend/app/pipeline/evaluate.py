@@ -77,10 +77,10 @@ def run_evaluation(pred_df: pd.DataFrame, target_df: pd.DataFrame) -> dict:
 
     # Ratios & metrics
     gt_count = len(target_df)
-    mfg_accuracy = (mfg_matches / total_matched * 100.0) if total_matched > 0 else 100.0
-    brand_accuracy = (brand_matches / total_matched * 100.0) if total_matched > 0 else 100.0
-    attribute_accuracy = (attribute_matches / total_attributes_checked * 100.0) if total_attributes_checked > 0 else 100.0
-    char_compliance = (char_limit_passes / total_matched * 100.0) if total_matched > 0 else 100.0
+    mfg_accuracy = (mfg_matches / total_matched * 100.0) if total_matched > 0 else None
+    brand_accuracy = (brand_matches / total_matched * 100.0) if total_matched > 0 else None
+    attribute_accuracy = (attribute_matches / total_attributes_checked * 100.0) if total_attributes_checked > 0 else None
+    char_compliance = (char_limit_passes / total_matched * 100.0) if total_matched > 0 else None
     
     # Calculate LOV & UOM compliance across all predicted rows
     lov_passed = 0
@@ -117,16 +117,19 @@ def run_evaluation(pred_df: pd.DataFrame, target_df: pd.DataFrame) -> dict:
     lov_compliance = (lov_passed / total_pred_checked * 100.0) if total_pred_checked > 0 else 100.0
     uom_compliance = (uom_passed / total_pred_checked * 100.0) if total_pred_checked > 0 else 100.0
     
-    overall_accuracy = (mfg_accuracy + brand_accuracy + attribute_accuracy + lov_compliance + uom_compliance + char_compliance) / 6.0
+    if total_matched > 0:
+        overall_accuracy = (mfg_accuracy + brand_accuracy + attribute_accuracy + lov_compliance + uom_compliance + char_compliance) / 6.0
+    else:
+        overall_accuracy = None
 
     return {
         "ground_truth_count": gt_count,
         "matched_count": total_matched,
-        "manufacturer_accuracy": round(mfg_accuracy, 1),
-        "brand_accuracy": round(brand_accuracy, 1),
-        "attribute_accuracy": round(attribute_accuracy, 1),
+        "manufacturer_accuracy": round(mfg_accuracy, 1) if mfg_accuracy is not None else None,
+        "brand_accuracy": round(brand_accuracy, 1) if brand_accuracy is not None else None,
+        "attribute_accuracy": round(attribute_accuracy, 1) if attribute_accuracy is not None else None,
         "lov_compliance": round(lov_compliance, 1),
         "uom_compliance": round(uom_compliance, 1),
-        "char_compliance": round(char_compliance, 1),
-        "overall_accuracy": round(overall_accuracy, 1),
+        "char_compliance": round(char_compliance, 1) if char_compliance is not None else None,
+        "overall_accuracy": round(overall_accuracy, 1) if overall_accuracy is not None else None,
     }

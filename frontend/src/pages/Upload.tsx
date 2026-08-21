@@ -358,39 +358,76 @@ export default function Upload({
 
           {report.evaluation && (
             <div className="mb-6 border-t border-white/10 pt-6">
-              <h4 className="text-xs font-semibold text-orange uppercase tracking-wider mb-4">🎯 UniHack Evaluation Scorecard</h4>
+              <div className="flex items-center justify-between gap-4 mb-4">
+                <h4 className="text-xs font-semibold text-orange uppercase tracking-wider">🎯 UniHack Evaluation Scorecard</h4>
+                {report.evaluation.matched_count === 0 && (
+                  <span className="text-[10px] text-orange/70 bg-orange/10 border border-orange/20 px-2 py-0.5 rounded">
+                    ⚠️ No Ground Truth matches in current upload
+                  </span>
+                )}
+              </div>
               <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
                 <div className="glass rounded-xl p-4 bg-orange/5 border border-orange/20">
                   <span className="text-xs text-orange/80 block">Overall Accuracy</span>
-                  <span className="text-3xl font-black text-orange mt-1 block">{report.evaluation.overall_accuracy}%</span>
+                  <span className="text-3xl font-black text-orange mt-1 block">
+                    {report.evaluation.overall_accuracy !== null && report.evaluation.overall_accuracy !== undefined
+                      ? `${report.evaluation.overall_accuracy}%`
+                      : "N/A"}
+                  </span>
                 </div>
                 <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
                   <span className="text-xs text-gray-500 block">Manufacturer Accuracy</span>
-                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.manufacturer_accuracy}%</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">
+                    {report.evaluation.manufacturer_accuracy !== null && report.evaluation.manufacturer_accuracy !== undefined
+                      ? `${report.evaluation.manufacturer_accuracy}%`
+                      : "N/A"}
+                  </span>
                 </div>
                 <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
                   <span className="text-xs text-gray-500 block">Brand Accuracy</span>
-                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.brand_accuracy}%</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">
+                    {report.evaluation.brand_accuracy !== null && report.evaluation.brand_accuracy !== undefined
+                      ? `${report.evaluation.brand_accuracy}%`
+                      : "N/A"}
+                  </span>
                 </div>
                 <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
                   <span className="text-xs text-gray-500 block">Attribute Accuracy</span>
-                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.attribute_accuracy}%</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">
+                    {report.evaluation.attribute_accuracy !== null && report.evaluation.attribute_accuracy !== undefined
+                      ? `${report.evaluation.attribute_accuracy}%`
+                      : "N/A"}
+                  </span>
                 </div>
                 <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
                   <span className="text-xs text-gray-500 block">LOV Compliance</span>
-                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.lov_compliance}%</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">
+                    {report.evaluation.lov_compliance !== null && report.evaluation.lov_compliance !== undefined
+                      ? `${report.evaluation.lov_compliance}%`
+                      : "N/A"}
+                  </span>
                 </div>
                 <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
                   <span className="text-xs text-gray-500 block">UOM Spacing Rate</span>
-                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.uom_compliance}%</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">
+                    {report.evaluation.uom_compliance !== null && report.evaluation.uom_compliance !== undefined
+                      ? `${report.evaluation.uom_compliance}%`
+                      : "N/A"}
+                  </span>
                 </div>
                 <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
                   <span className="text-xs text-gray-500 block">Description Limits</span>
-                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.char_compliance}%</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">
+                    {report.evaluation.char_compliance !== null && report.evaluation.char_compliance !== undefined
+                      ? `${report.evaluation.char_compliance}%`
+                      : "N/A"}
+                  </span>
                 </div>
                 <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
                   <span className="text-xs text-gray-500 block">Matched Ground Truth</span>
-                  <span className="text-lg font-bold text-white mt-2 block">{report.evaluation.matched_count} / {report.evaluation.ground_truth_count}</span>
+                  <span className="text-lg font-bold text-white mt-2 block">
+                    {report.evaluation.matched_count} / {report.evaluation.ground_truth_count}
+                  </span>
                 </div>
               </div>
             </div>
