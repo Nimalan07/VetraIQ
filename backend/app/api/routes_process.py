@@ -418,6 +418,8 @@ async def process_bulk_csv(
             norm_prod = get_golden_row_extraction(row)
         else:
             # Live pipeline E2E extraction
+            import time
+            time.sleep(1.0)  # Rate limit calls to local Ollama to prevent socket disconnection
             raw_text = f"Part Number: {part_num}\nDescription: {desc}\nManufacturer: {manuf}"
             try:
                 extracted = extract_product(raw_text)
