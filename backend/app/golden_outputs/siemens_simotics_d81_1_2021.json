@@ -1,0 +1,123 @@
+{
+  "core_fields": {
+    "product_name": {
+      "value": "SIMOTICS GP Low-Voltage Motor (1LE1 Series)",
+      "confidence": 0.98,
+      "method": "extracted",
+      "source_ref": "document:p3",
+      "flags": []
+    },
+    "brand_manufacturer": {
+      "value": "Siemens AG",
+      "confidence": 1.0,
+      "method": "extracted",
+      "source_ref": "document:p3",
+      "flags": []
+    },
+    "category": {
+      "value": "Low-Voltage Motors",
+      "confidence": 0.99,
+      "method": "extracted",
+      "source_ref": "document:p1",
+      "flags": []
+    },
+    "sku_part_number": {
+      "value": "1LE1001-1DB43-4AA4",
+      "confidence": 0.96,
+      "method": "extracted",
+      "source_ref": "document:p45",
+      "flags": []
+    },
+    "description": {
+      "value": "SIMOTICS GP General Purpose motor with aluminum housing, design type IM B3, self-ventilated, IP55 protection. Rated for IE3 Premium Efficiency class, suitable for pumps, fans, and compressor applications.",
+      "confidence": 0.96,
+      "method": "extracted",
+      "source_ref": "document:p6",
+      "flags": []
+    },
+    "price": {
+      "value": null,
+      "confidence": 0.0,
+      "method": null,
+      "source_ref": null,
+      "flags": []
+    }
+  },
+  "technical_attributes": {
+    "material": {
+      "value": "Aluminum housing, cast-iron end shields",
+      "confidence": 0.95,
+      "method": "extracted",
+      "source_ref": "document:p25",
+      "flags": []
+    },
+    "dimensions": {
+      "value": "Frame size 160M (322 mm shaft height)",
+      "confidence": 0.98,
+      "method": "extracted",
+      "source_ref": "document:p82",
+      "flags": []
+    },
+    "weight": {
+      "value": "73 kg",
+      "confidence": 0.94,
+      "method": "extracted",
+      "source_ref": "document:p82",
+      "flags": []
+    },
+    "voltage_power_rating": {
+      "value": "400V Delta / 690V Star, 11 kW (15 HP)",
+      "confidence": 0.99,
+      "method": "extracted",
+      "source_ref": "document:p45",
+      "flags": []
+    },
+    "certifications_compliance": {
+      "value": [
+        "CE",
+        "EAC",
+        "IE3 Efficiency Compliant"
+      ],
+      "confidence": 0.99,
+      "method": "extracted",
+      "source_ref": "document:p12",
+      "flags": []
+    },
+    "compatible_parts": {
+      "value": null,
+      "confidence": 0.0,
+      "method": null,
+      "source_ref": null,
+      "flags": []
+    },
+    "custom_attributes": {
+      "efficiency_class": {
+        "value": "IE3 Premium Efficiency (91.4% efficiency at full load)",
+        "confidence": 0.99,
+        "method": "extracted",
+        "source_ref": "document:p46",
+        "flags": []
+      },
+      "rated_speed_rpm": {
+        "value": "1470 rpm",
+        "confidence": 0.99,
+        "method": "extracted",
+        "source_ref": "document:p45",
+        "flags": []
+      },
+      "number_of_poles": {
+        "value": 4,
+        "confidence": 1.0,
+        "method": "extracted",
+        "source_ref": "document:p45",
+        "flags": []
+      }
+    }
+  },
+  "validation": {
+    "missing_required_fields": [],
+    "unit_inconsistencies": [],
+    "duplicate_of": null,
+    "flags": []
+  }
+}

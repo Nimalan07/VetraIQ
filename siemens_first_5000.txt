@@ -1,0 +1,138 @@
+[PAGE 1]
+SIMOTICS Motors
+siemens.com/drives
+SIMOTICS GP, SD, XP, DP 
+Low-Voltage Motors
+Type series 1FP1, 1LE1, 1LE5, 1MB1, 1MB5 and 1PC1
+Frame sizes 63 to 450 · Power range 0.09 to 1000 kW
+Catalog
+D 81.1
+Edition
+12/2021
+© Siemens 2021
+
+[PAGE 2]
+SIMOTICS FD
+D 81.8
+Low-Voltage Motors
+Frame sizes 315 to 450
+Power range 200 to 1800 kW
+PDF (E86060-K5581-A181-A5-7600)
+SIMOTICS NEMA Motors
+D 81.2
+Low Voltage AC Motors 
+Selection and Pricing Guide
+Further details available on the Internet at:
+www.usa.siemens.com/motors
+SINAMICS G130
+D 11
+Drive Converter Chassis Units
+SINAMICS G150 
+Drive Converter Cabinet Units
+E86060-K5511-A101-A6-7600
+Motion Control Drives
+D 21.4
+SINAMICS S120 and SIMOTICS
+E86060-K5521-A141-A1-7600
+SINAMICS S120
+D 21.3
+Chassis Format Converter Units
+Chassis-2 Format Converter Units
+Cabinet Modules, Cabinet Modules-2
+SINAMICS S150
+Converter Cabinet Units
+E86060-K5521-A131-A7-7600
+Motion Control Drives
+D 31.1
+SINAMICS Inverters for Single-Axis Drives 
+Built-In Units
+E86060-K5531-A111-A1-7600
+Industrial Controls
+IC 10
+SIRIUS
+E86060-K1010-A101-B1-7600
+Industry Mall 
+Information and Ordering Platform
+on the Internet:
+www.siemens.com/industrymall 
+All catalogs and other information material, such as brochures, 
+manuals and operating instructions for standard drive systems are 
+available up-to-date on the Internet at the following address:
+www.siemens.com/drives/catalogs
+The listed documentation can be ordered here or it is available in 
+commonly used file formats (PDF, ZIP) for downloading.
+SinaSave energy saving/energy efficiency tool 
+Further information on the subject of energy saving and the 
+SinaSave energy efficiency tool is available at the following address:
+www.sinasave.siemens.com
+Drive Technology Configurator
+The DT Configurator can be used on the Internet without requiring any 
+installation. 
+The DT Configurator can be found in the Industry Mall at the following 
+address:
+www.siemens.com/dt-configurator
+The Drive Technology Configurator for gear units, motors, mechanical 
+components, converters, connection systems, control and licenses and 
+system configuration can be found in the Industry Mall main menu, 
+under drive systems, selection and engineering tools.
+• Data sheets in up to 7 languages in PDF or RTF format
+• 2D/3D dimensional drawings in various formats
+• Terminal box drawing and terminal connection diagram
+• Operating instructions
+• Certificates
+• Start-up calculation for SIMOTICS motors
+• EPLAN macros
+Copper surcharges
+The metal factors that are applicable for the copper surcharges are speci-
+fied in the headers of the current Price List D 81.1 P. Further information 
+about "Metal surcharges" can be found in the appendix to this catalog.
+Related catalogs 
+© Siemens 2021
+
+[PAGE 3]
+siemens.com/drives
+Dear Customer,
+We are pleased to present you with the new Catalog D 81.1 · 12/2021. 
+The new catalog replaces the old Catalog D 81.1 · 06/2020:
+In the catalog, numerous new products have been included, which are marked with "▲" to indicate a brand new listing.
+7 New chapter „Digitalisation of motors“
+– SIMOTICS CONNECT 400 / SIDRIVE IQ Fleet
+7 For the SIMOTICS GP/SD standard motors:
+– Expansion of aluminum- and cast-iron series 1LE1 with IE3 Premium Efficiency, 2- to 8-pole, frame sizes 80 to 280
+– Inclusion of 1LE10 aluminum series with IE2 High Efficiency, 6- and 8-pole, frame sizes 63 and 71
+7 For the SIMOTICS XP explosion-protected motors:
+zone 21, 22 and 2 with types of protection Ex tb, Ex tc, Ex ec (Efficiency IE4 bis IE2)
+– Expansion of cast-iron series 1MB15.3, 1MB55.4, 1MB55.3
+– Expansion of aluminum series 1MB10.3, 1MB10.1
+– Inclusion of the 1MB15.7, 1MB55.7, 1MB55.6, 1MB18.3, 1MB58.3
+By clicking on the article numbers in each chapter of the catalog PDF, you can go directly to our "Industry Mall".
+The products listed in this catalog are also included in the "Industry Mall". 
+The "Drive Technology Configurator" is updated daily in the Internet at 
+www.siemens.com/dt-configurator
+Up-to-date information about low-voltage motors is available online at:
+www.siemens.com/lowvoltagemotors
+You can access our "Industry Mall" online at
+www.siemens.com/industrymall
+Your personal contact will be glad to receive your suggestions and recommendations for improvement. You can find your represen-
+tative in our contact person database at www.siemens.com/automation-contact
+We hope that you will often enjoy using Catalog D 81.1 · 12/2021 as a selection and ordering reference document and 
+wish you every success with our products and solutions.
+With kind regards,
+Christoph Nöth
+Head of Product Portfolio Management 
+Siemens AG, Motion Control, Low Voltage Motors, Europe
+SIMOTICS GP, SD, XP, DP
+Low-Voltage Motors
+Type series 1FP1, 1LE1, 1LE5, 1MB1, 1MB5 and 1PC1
+Frame sizes 63 to 450, power range 0.09 to 1000 kW
+Catalog D 81.1 · 12/2021
+© Siemens 2021
+
+[PAGE 4]
+© Siemens 2021
+
+[PAGE 5]
+Catalog D 81.1 · 12/2021
+Supersedes: 
+Catalog D 81.1 · 06/2020
+Refer to the Industry Mall for current updates of 

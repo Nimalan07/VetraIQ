@@ -1,0 +1,123 @@
+{
+  "core_fields": {
+    "product_name": {
+      "value": "EasyPact EZC Molded Case Circuit Breaker",
+      "confidence": 0.99,
+      "method": "extracted",
+      "source_ref": "document:p1",
+      "flags": []
+    },
+    "brand_manufacturer": {
+      "value": "Schneider Electric",
+      "confidence": 1.0,
+      "method": "extracted",
+      "source_ref": "document:p1",
+      "flags": []
+    },
+    "category": {
+      "value": "Circuit Breaker",
+      "confidence": 0.99,
+      "method": "extracted",
+      "source_ref": "document:p1",
+      "flags": []
+    },
+    "sku_part_number": {
+      "value": "EZC100H3060",
+      "confidence": 0.95,
+      "method": "extracted",
+      "source_ref": "document:p3",
+      "flags": []
+    },
+    "description": {
+      "value": "EasyPact EZC molded case circuit breaker with thermal-magnetic trip unit, designed for electrical distribution protection. Features 3 poles, 60A rated current, and 30kA breaking capacity.",
+      "confidence": 0.97,
+      "method": "extracted",
+      "source_ref": "document:p1",
+      "flags": []
+    },
+    "price": {
+      "value": null,
+      "confidence": 0.0,
+      "method": null,
+      "source_ref": null,
+      "flags": []
+    }
+  },
+  "technical_attributes": {
+    "material": {
+      "value": "Thermoset Plastic (body), Copper (contacts)",
+      "confidence": 0.91,
+      "method": "extracted",
+      "source_ref": "document:p8",
+      "flags": []
+    },
+    "dimensions": {
+      "value": "130 mm x 75 mm x 60 mm",
+      "confidence": 0.98,
+      "method": "extracted",
+      "source_ref": "document:p4",
+      "flags": []
+    },
+    "weight": {
+      "value": "0.8 kg",
+      "confidence": 0.95,
+      "method": "extracted",
+      "source_ref": "document:p4",
+      "flags": []
+    },
+    "voltage_power_rating": {
+      "value": "415V AC, 50/60 Hz",
+      "confidence": 0.99,
+      "method": "extracted",
+      "source_ref": "document:p2",
+      "flags": []
+    },
+    "certifications_compliance": {
+      "value": [
+        "IEC 60947-2",
+        "EN 60947-2",
+        "RoHS"
+      ],
+      "confidence": 0.99,
+      "method": "extracted",
+      "source_ref": "document:p2",
+      "flags": []
+    },
+    "compatible_parts": {
+      "value": null,
+      "confidence": 0.0,
+      "method": null,
+      "source_ref": null,
+      "flags": []
+    },
+    "custom_attributes": {
+      "breaking_capacity": {
+        "value": "30 kA at 415 V AC",
+        "confidence": 0.99,
+        "method": "extracted",
+        "source_ref": "document:p2",
+        "flags": []
+      },
+      "number_of_poles": {
+        "value": 3,
+        "confidence": 1.0,
+        "method": "extracted",
+        "source_ref": "document:p1",
+        "flags": []
+      },
+      "trip_unit_technology": {
+        "value": "Thermal-magnetic",
+        "confidence": 0.98,
+        "method": "extracted",
+        "source_ref": "document:p1",
+        "flags": []
+      }
+    }
+  },
+  "validation": {
+    "missing_required_fields": [],
+    "unit_inconsistencies": [],
+    "duplicate_of": null,
+    "flags": []
+  }
+}
