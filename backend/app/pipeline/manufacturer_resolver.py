@@ -23,13 +23,19 @@ def resolve_manufacturer_and_brand(part_manuf: str, part_num: str = "", part_des
     if "mirka" in manuf_l or "mirka" in pn_l or "hiolit" in desc_l or "abranet" in desc_l or "5b-332" in pn_l or "9a-570" in pn_l:
         return "Mirka Abrasives Inc (MIRUS)", "Mirka Abrasives Inc (MIRUS)"
 
-    # Rule 4: Frigidaire / Rheem Manufacturing
-    if "frigidaire" in manuf_l or "frigidaire" in desc_l or "pdsh" in pn_l or "appliance dealers" in manuf_l:
-        return "Rheem Manufacturing", "FRIGIDAIRE®"
-
     # Rule 5: Whirlpool
     if "whirlpool" in manuf_l or "whirlpool" in desc_l or "wdt" in pn_l:
         return "Whirlpool Corporation", "Whirlpool®"
+
+    # Rule 4: Frigidaire / Rheem Manufacturing
+    if "frigidaire" in manuf_l or "frigidaire" in desc_l or "pdsh" in pn_l:
+        return "Rheem Manufacturing", "FRIGIDAIRE®"
+
+    # Rule 6: Appliance Dealers Cooperative (APPDE) context-aware resolver
+    if "appliance dealers" in manuf_l:
+        if "whirlpool" in desc_l or "wdt" in pn_l:
+            return "Whirlpool Corporation", "Whirlpool®"
+        return "Rheem Manufacturing", "FRIGIDAIRE®"
 
     # Fallback cleanup
     manuf_clean = manuf.replace("®", "").replace("™", "").strip()

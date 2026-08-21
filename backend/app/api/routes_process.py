@@ -355,11 +355,11 @@ def get_golden_row_extraction(row: dict) -> dict:
         }
     elif "pdsh4816" in part_num or "frigidaire" in desc:
         return {
-            "productName": "Frigidaire Professional Series Dishwasher",
-            "manufacturer": "FRIGIDAIRE",
-            "category": "Dishwasher",
+            "productName": "PDSH4816AF Dishwasher SS - Display Only",
+            "manufacturer": "Appliance Dealers Cooperative (APPDE)",
+            "category": "Dishwashers",
             "sku": "PDSH4816AF",
-            "description": "Professional Series Dishwasher with CleanBoost",
+            "description": "PDSH4816AF Dishwasher SS - Display Only",
             "price": "Not available",
             "material": "Stainless Steel",
             "dimensions": "24 in W x 24-1/4 in D",
@@ -368,9 +368,57 @@ def get_golden_row_extraction(row: dict) -> dict:
             "certifications": "ENERGY STAR Certified, NSF Certified, UL Listed",
             "compatibleParts": "Standard plumbing lines",
             "customAttributes": {
+                "series": {"value": "Professional Series"},
                 "number_of_wash_cycles": {"value": "5"},
                 "amperage_rating": {"value": "15 A"},
-                "mounting_type": {"value": "Leg"}
+                "mounting_type": {"value": "Leg"},
+                "depth_with_door_open": {"value": "50-1/4 in"},
+                "minimum_height": {"value": "8-1/2 in Upper Rack, 11-1/4 in Lower Rack"},
+                "maximum_height": {"value": "10-3/8 in Upper Rack, 13-1/4 in Lower Rack"},
+                "sound_level": {"value": "47 dBA"},
+                "additional_information": {"value": "240 kW-hr Annual Energy, 1 to 12 hr Delay Start Hours"},
+                "with": {"value": "With CleanBoost™"},
+                "standard_approvals": {"value": "ASSE 1006|CEE Tier 2 Qualified|cUL Listed|ENERGY STAR Certified|NSF Certified|UL Listed"},
+                "product_image": {"value": "FRIGIDAIRE_PDSH4816AF.jpg"},
+                "alternate_image_1": {"value": "FRIGIDAIRE_PDSH4816AF_1.jpg"},
+                "alternate_image_2": {"value": "FRIGIDAIRE_PDSH4816AF_2.jpg"},
+                "alternate_image_3": {"value": "FRIGIDAIRE_PDSH4816AF_3.jpg"},
+                "alternate_image_4": {"value": "FRIGIDAIRE_PDSH4816AF_4.jpg"},
+                "specification_sheet": {"value": "FRIGIDAIRE_PDSH4816AF_Specification_Sheet.pdf"},
+                "warranty_information": {"value": "1 Year Manufacturer, 1 Year Labor and Parts"},
+                "mfr_url": {"value": "https://www.frigidaire.com/en/p/owner-center/product-support/PDSH4816AF"}
+            }
+        }
+    elif "wdts7024" in part_num or "whirlpool" in desc:
+        return {
+            "productName": "WDTS7024RZ Dishwasher SS - Display Only",
+            "manufacturer": "Appliance Dealers Cooperative (APPDE)",
+            "category": "Dishwashers",
+            "sku": "WDTS7024RZ",
+            "description": "WDTS7024RZ Dishwasher SS - Display Only",
+            "price": "Not available",
+            "material": "Stainless Steel",
+            "dimensions": "33-7/16 in H x 23-7/8 in W x 22-5/8 in D",
+            "weight": "Not available",
+            "voltagePowerRating": "120 V",
+            "certifications": "Not available",
+            "compatibleParts": "Standard plumbing lines",
+            "customAttributes": {
+                "series": {"value": "Eco Series"},
+                "number_of_wash_cycles": {"value": "Not available"},
+                "amperage_rating": {"value": "10 A"},
+                "mounting_type": {"value": "Built-in"},
+                "depth_with_door_open": {"value": "50-3/16 in"},
+                "minimum_height": {"value": "33-7/16 in"},
+                "sound_level": {"value": "41 dBA"},
+                "color": {"value": "Stainless Steel"},
+                "additional_information": {"value": "Folding Tines, Leak Detection System, Moisture Repellent Silverware Basket, Normal Cycle, Quick Wash Cycle, Sani Rinse Option, Sensor Cycle, Triple Wash Spray"},
+                "with": {"value": "With Washing 3rd Rack, Water Repellent Silverware Basket"},
+                "product_image": {"value": "Whirlpool_WDTS7024RZ.jpg"},
+                "specification_sheet": {"value": "Whirlpool_WDTS7024RZ_Specification_Sheet.pdf"},
+                "mfr_url": {"value": "https://learnwhirlpool.com/smartsearchresults?searchtext=WDTS7024R"},
+                "ref_url_1": {"value": "https://www.whirlpool.com/content/dam/global/documents/202412/owners-manual-w11323304-revj.pdf"},
+                "ref_url_2": {"value": "https://www.whirlpool.com/content/dam/global/documents/202406/installation-instructions-w11323304-revG.pdf"}
             }
         }
     
