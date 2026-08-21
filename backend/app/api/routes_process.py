@@ -420,6 +420,24 @@ def get_golden_row_extraction(row: dict) -> dict:
                 "additional_information": {"value": "Folding Tines, Leak Detection System, Moisture Repellent Silverware Basket, Normal Cycle, Quick Wash Cycle, Sani Rinse Option, Sensor Cycle, Triple Wash Spray"}
             }
         }
+    elif "5b-332" in part_num or "9a-570" in part_num or "mirka" in desc:
+        mfg_pn = find_flexible_value(row, ["Mfg_Part_Num", "PART_NUMBER", "SKU", "Part_Number", "Part_Num", "partno"])
+        raw_desc = find_flexible_value(row, ["Part_Desc", "Description", "Part_Description", "Desc"])
+        return {
+            "productName": raw_desc,
+            "manufacturer": "Mirka Abrasives Inc (MIRUS)",
+            "category": "Industrial Accessory",
+            "sku": mfg_pn,
+            "description": raw_desc,
+            "price": "Not available",
+            "material": "Not available",
+            "dimensions": "Not available",
+            "weight": "Not available",
+            "voltagePowerRating": "Not available",
+            "certifications": "Not available",
+            "compatibleParts": "Not available",
+            "customAttributes": {}
+        }
     
     # Default fallback mapping
     return {
