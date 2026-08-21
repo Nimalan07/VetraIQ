@@ -64,3 +64,31 @@ def test_evaluate_engine():
     assert res["manufacturer_accuracy"] == 100.0
     assert res["brand_accuracy"] == 100.0
     assert res["overall_accuracy"] == 100.0
+
+
+def test_dishwasher_export_mapping():
+    from app.pipeline.official_export import create_unihack_row, get_official_columns
+    from app.api.routes_process import get_golden_row_extraction
+    
+    # Input row
+    raw_row = {
+        "Mfg_Part_Num": "PDSH4816AF",
+        "Part_Desc": "PDSH4816AF Dishwasher SS - Display Only",
+        "Part_Manuf": "Appliance Dealers Cooperative (APPDE)"
+    }
+    
+    norm_prod = get_golden_row_extraction(raw_row)
+    official_cols = get_official_columns()
+    
+    mapped_row = create_unihack_row(norm_prod, raw_row, official_cols)
+    
+    assert mapped_row["MFR URL"] == "https://www.frigidaire.com/en/p/owner-center/product-support/PDSH4816AF"
+    assert mapped_row["MANUFACTURER_NAME"] == "Rheem Manufacturing"
+    assert mapped_row["BRAND_NAME"] == "FRIGIDAIRE®"
+    assert mapped_row["Dept"] == "Appliances"
+    assert mapped_row["Class"] == "Large Appliances"
+    assert mapped_row["Fine"] == "Dishwashers"
+    assert mapped_row["Classpath"] == "Appliances & Consumer Electronics>Kitchen Appliances>Built-In Dishwashers"
+    assert mapped_row["Product Image"] == "FRIGIDAIRE_PDSH4816AF.jpg"
+    assert mapped_row["Specification Sheet"] == "FRIGIDAIRE_PDSH4816AF_Specification_Sheet.pdf"
+    assert mapped_row["Actual Image (Yes/No)"] == "Yes"
