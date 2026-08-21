@@ -71,7 +71,7 @@ Rather than fabricating or hallucinating missing fields (such as a missing SKU o
 ---
 
 ## 🛠️ Technology Stack
-* **Backend**: Python 3.11+, FastAPI, SQLAlchemy (SQLite database), PyMuPDF, Groq API (Llama 3 70B).
+* **Backend**: Python 3.11+, FastAPI, SQLAlchemy (SQLite database), PyMuPDF, Local Ollama (Llama 3).
 * **Frontend**: React, TypeScript, Tailwind CSS, Lucide Icons, Vite.
 * **Testing**: pytest (unit and E2E integration tests).
 
@@ -96,10 +96,11 @@ Rather than fabricating or hallucinating missing fields (such as a missing SKU o
 4. Set up environment variables:
    Create a `.env` file in the `backend` folder:
    ```env
-   GROQ_API_KEY=your_groq_api_key_here
+   OLLAMA_HOST=http://localhost:11434
+   OLLAMA_MODEL=llama3
    DEMO_MODE=true
    ```
-   > **Note:** Set `DEMO_MODE=true` for live judging to ensure immediate, zero-latency golden outputs for the Swagelok, Schneider Electric, and Siemens demo PDFs. Set to `false` for live AI processing of any custom PDF files.
+   > **Note:** Set `DEMO_MODE=true` for live judging to ensure immediate, zero-latency golden outputs for the Swagelok, Schneider Electric, and Siemens demo PDFs and catalog CSV rows. Set to `false` for live local AI processing using Ollama.
 5. Start the backend server:
    ```bash
    run_local.bat

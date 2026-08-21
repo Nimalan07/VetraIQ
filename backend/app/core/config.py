@@ -7,6 +7,9 @@ load_dotenv()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3")
+
 DEMO_MODE = os.getenv("DEMO_MODE", "false").lower() == "true"
 
 DATABASE_URL = os.getenv(
@@ -24,6 +27,3 @@ APP_VERSION = os.getenv(
     "1.0.0"
 )
 
-
-if not GROQ_API_KEY:
-    print("WARNING: GROQ_API_KEY is not configured.")
