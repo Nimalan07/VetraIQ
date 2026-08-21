@@ -12,6 +12,7 @@ import {
   uploadProduct,
   processProduct,
   processBulkCsv,
+  evaluateSubmission,
 } from "../api/client";
 
 interface Props {
@@ -26,6 +27,17 @@ interface ConversionReport {
   downloadUrl: string;
   previewRows: Array<Record<string, string>>;
   extractedSpecs: string[];
+  evaluation?: {
+    ground_truth_count: number;
+    matched_count: number;
+    manufacturer_accuracy: number;
+    brand_accuracy: number;
+    attribute_accuracy: number;
+    lov_compliance: number;
+    uom_compliance: number;
+    char_compliance: number;
+    overall_accuracy: number;
+  };
 }
 
 export default function Upload({
@@ -116,6 +128,15 @@ export default function Upload({
           });
         }
         
+        const finalFile = new File([blob], "submission.csv", { type: "text/csv" });
+        setProgress("Calculating UniHack evaluation scorecard...");
+        let evaluation = undefined;
+        try {
+          evaluation = await evaluateSubmission(finalFile);
+        } catch (evalErr) {
+          console.error("Evaluation scorecard calculation failed:", evalErr);
+        }
+
         const url = URL.createObjectURL(blob);
         
         setReport({
@@ -124,6 +145,7 @@ export default function Upload({
           downloadUrl: url,
           previewRows,
           extractedSpecs: Array.from(extractedSpecsSet),
+          evaluation,
         });
 
         // Trigger file download
@@ -334,8 +356,48 @@ export default function Upload({
             </div>
           </div>
 
+          {report.evaluation && (
+            <div className="mb-6 border-t border-white/10 pt-6">
+              <h4 className="text-xs font-semibold text-orange uppercase tracking-wider mb-4">🎯 UniHack Evaluation Scorecard</h4>
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                <div className="glass rounded-xl p-4 bg-orange/5 border border-orange/20">
+                  <span className="text-xs text-orange/80 block">Overall Accuracy</span>
+                  <span className="text-3xl font-black text-orange mt-1 block">{report.evaluation.overall_accuracy}%</span>
+                </div>
+                <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
+                  <span className="text-xs text-gray-500 block">Manufacturer Accuracy</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.manufacturer_accuracy}%</span>
+                </div>
+                <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
+                  <span className="text-xs text-gray-500 block">Brand Accuracy</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.brand_accuracy}%</span>
+                </div>
+                <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
+                  <span className="text-xs text-gray-500 block">Attribute Accuracy</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.attribute_accuracy}%</span>
+                </div>
+                <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
+                  <span className="text-xs text-gray-500 block">LOV Compliance</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.lov_compliance}%</span>
+                </div>
+                <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
+                  <span className="text-xs text-gray-500 block">UOM Spacing Rate</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.uom_compliance}%</span>
+                </div>
+                <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
+                  <span className="text-xs text-gray-500 block">Description Limits</span>
+                  <span className="text-2xl font-bold text-white mt-1 block">{report.evaluation.char_compliance}%</span>
+                </div>
+                <div className="glass rounded-xl p-4 bg-white/[0.01] border border-white/5">
+                  <span className="text-xs text-gray-500 block">Matched Ground Truth</span>
+                  <span className="text-lg font-bold text-white mt-2 block">{report.evaluation.matched_count} / {report.evaluation.ground_truth_count}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
           {report.extractedSpecs.length > 0 && (
-            <div className="mb-6">
+            <div className="mb-6 border-t border-white/10 pt-6">
               <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Dynamic Specs Extracted</h4>
               <div className="flex flex-wrap gap-1.5">
                 {report.extractedSpecs.map((spec) => (

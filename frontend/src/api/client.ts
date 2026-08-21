@@ -71,3 +71,23 @@ export const processBulkCsv = async (
 };
 
 
+export const evaluateSubmission = async (
+  file: File
+) => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await api.post(
+    "/api/process/evaluate",
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return response.data;
+};
+
+

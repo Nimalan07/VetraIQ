@@ -490,3 +490,30 @@ async def process_bulk_csv(
     )
 
 
+@router.post("/evaluate")
+async def evaluate_submission(
+    file: UploadFile = File(...),
+):
+    """
+    Evaluate an uploaded submission CSV against the Ground Truth Delivery format.
+    """
+    contents = await file.read()
+    try:
+        pred_df = pd.read_csv(io.BytesIO(contents))
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail="Failed to parse submission CSV: " + str(exc))
+        
+    from app.pipeline.official_export import TEMPLATE_PATH
+    if not TEMPLATE_PATH.exists():
+        raise HTTPException(status_code=404, detail="Ground Truth template file not found.")
+        
+    try:
+        target_df = pd.read_csv(TEMPLATE_PATH)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail="Failed to parse Ground Truth template: " + str(exc))
+        
+    from app.pipeline.evaluate import run_evaluation
+    results = run_evaluation(pred_df, target_df)
+    return results
+
+
