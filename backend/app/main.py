@@ -51,7 +51,7 @@ app.include_router(
 )
 
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 def root():
 
     return {
@@ -61,7 +61,7 @@ def root():
     }
 
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health():
 
     return {
