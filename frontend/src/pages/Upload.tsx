@@ -267,6 +267,41 @@ export default function Upload({
         )}
       </div>
 
+      {/* Quick Download Links */}
+      {!file && (
+        <div className="mt-6 rounded-2xl border border-white/5 bg-white/[0.01] p-5 text-left">
+          <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+            💡 Download sample files for testing
+          </h4>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="/sample-pdfs/mechanical/swagelok_gb_ball_valve.pdf"
+              download
+              className="inline-flex items-center gap-1.5 rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-xs text-gray-300 hover:bg-orange/10 hover:border-orange/20 hover:text-orange transition"
+            >
+              <FileText size={14} />
+              Swagelok Ball Valve (PDF)
+            </a>
+            <a
+              href="/sample-pdfs/electrical/siemens_simotics_d81_1_2021.pdf"
+              download
+              className="inline-flex items-center gap-1.5 rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-xs text-gray-300 hover:bg-orange/10 hover:border-orange/20 hover:text-orange transition"
+            >
+              <FileText size={14} />
+              Siemens Motor (PDF)
+            </a>
+            <a
+              href="/sample-pdfs/unihack_sample_input.csv"
+              download
+              className="inline-flex items-center gap-1.5 rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-xs text-gray-300 hover:bg-orange/10 hover:border-orange/20 hover:text-orange transition"
+            >
+              <FileText size={14} />
+              UniHack Input Catalog (CSV)
+            </a>
+          </div>
+        </div>
+      )}
+
       {/* CSV Bulk options */}
       {file && isCsv && (
         <div className="glass rounded-2xl p-6 mt-5 text-left border border-white/5 bg-white/[0.01]">
