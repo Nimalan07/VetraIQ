@@ -278,7 +278,10 @@ export default function Export({ product }: Props) {
         {/* JSON Card */}
         <button
           onClick={() => exportData("json")}
-          className="glass group rounded-2xl p-7 text-left transition hover:border-orange/30"
+          disabled={!norm}
+          className={`glass group rounded-2xl p-7 text-left transition ${
+            norm ? "hover:border-orange/30 cursor-pointer" : "opacity-50 cursor-not-allowed"
+          }`}
         >
           <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-orange/10 text-orange">
             <FileJson />
@@ -288,15 +291,18 @@ export default function Export({ product }: Props) {
             Structured B2B product data schema with full traceability.
           </p>
           <div className="mt-6 flex items-center gap-2 text-xs text-orange">
-            Download JSON
-            <Download size={14} />
+            {norm ? "Download JSON" : "Select product first"}
+            {norm && <Download size={14} />}
           </div>
         </button>
 
         {/* CSV Card */}
         <button
           onClick={() => exportData("csv")}
-          className="glass group rounded-2xl p-7 text-left transition hover:border-orange/30"
+          disabled={!norm}
+          className={`glass group rounded-2xl p-7 text-left transition ${
+            norm ? "hover:border-orange/30 cursor-pointer" : "opacity-50 cursor-not-allowed"
+          }`}
         >
           <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-orange/10 text-orange">
             <FileSpreadsheet />
@@ -306,8 +312,8 @@ export default function Export({ product }: Props) {
             Adapts columns dynamically (Hardware vs. Software) with custom fields.
           </p>
           <div className="mt-6 flex items-center gap-2 text-xs text-orange">
-            Download CSV
-            <Download size={14} />
+            {norm ? "Download CSV" : "Select product first"}
+            {norm && <Download size={14} />}
           </div>
         </button>
 
@@ -327,8 +333,8 @@ export default function Export({ product }: Props) {
             Printable publication-ready technical datasheet report.
           </p>
           <div className="mt-6 flex items-center gap-2 text-xs text-orange">
-            {norm ? "Generate PDF" : "Upload product first"}
-            <Download size={14} />
+            {norm ? "Generate PDF" : "Select product first"}
+            {norm && <Download size={14} />}
           </div>
         </button>
       </div>
