@@ -8,6 +8,7 @@ import ProductReview from "./pages/ProductReview";
 import Export from "./pages/Export";
 
 import type { ProductResponse } from "./types/product";
+import { getProductById } from "./api/client";
 
 function App() {
 
@@ -22,22 +23,29 @@ function App() {
   const handleProductComplete = (
     processedProduct: ProductResponse
   ) => {
-
     console.log(
       "Processed:",
       processedProduct
     );
-
     setProduct(processedProduct);
     setPage("products");
   };
 
+  const handleSelectProductById = async (id: string) => {
+    try {
+      const response = await getProductById(id);
+      if (response) {
+        setProduct(response);
+        setPage("products");
+      }
+    } catch (err) {
+      console.error("Failed to load product by ID:", err);
+    }
+  };
+
   const renderPage = () => {
-
     switch (page) {
-
       case "upload":
-
         return (
           <Upload
             onComplete={
@@ -47,26 +55,28 @@ function App() {
         );
 
       case "products":
-
       case "review":
-
         return (
           <ProductReview
             product={product}
+            onSelectProduct={setProduct}
           />
         );
 
       case "export":
-
         return <Export product={product} />;
 
       case "dashboard":
-
       default:
-
         return (
           <Dashboard
-            onNavigate={setPage}
+            onNavigate={(targetPage) => {
+              if (targetPage === "products") {
+                setProduct(null);
+              }
+              setPage(targetPage);
+            }}
+            onSelectProduct={handleSelectProductById}
           />
         );
     }
@@ -76,16 +86,11 @@ function App() {
     string,
     string
   > = {
-    dashboard:
-      "Overview",
-    upload:
-      "Analyze Product",
-    products:
-      "Product Review",
-    review:
-      "Product Review",
-    export:
-      "Export",
+    dashboard: "Overview",
+    upload: "Analyze Product",
+    products: product ? "Product Review" : "Product Directory",
+    review: "Product Review",
+    export: "Export",
   };
 
   return (
@@ -95,7 +100,12 @@ function App() {
         "Dashboard"
       }
       active={page}
-      onNavigate={setPage}
+      onNavigate={(targetPage) => {
+        if (targetPage === "products") {
+          setProduct(null);
+        }
+        setPage(targetPage);
+      }}
     >
       {renderPage()}
     </Layout>

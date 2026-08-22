@@ -95,4 +95,14 @@ export const getDashboardStats = async () => {
   return response.data;
 };
 
+export const getAllProducts = async () => {
+  const response = await api.get("/api/process/products");
+  return response.data;
+};
+
+export const getProductById = async (id: string) => {
+  const response = await api.get(`/api/process/products/${id}`);
+  return response.data;
+};
+
 

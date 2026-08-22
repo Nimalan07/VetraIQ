@@ -703,3 +703,48 @@ async def get_dashboard_stats(db: Session = Depends(get_db)):
     }
 
 
+@router.get("/products")
+async def get_all_products(db: Session = Depends(get_db)):
+    """
+    Get all processed products from the SQLite database.
+    """
+    products = db.query(Product).filter(Product.status == "processed").order_by(Product.created_at.desc()).all()
+    result = []
+    for p in products:
+        try:
+            extra = json.loads(p.extraction_json) if p.extraction_json else {}
+        except Exception:
+            extra = {}
+        result.append({
+            "id": p.id,
+            "source_type": p.source_type,
+            "source_reference": p.source_reference,
+            "status": p.status,
+            "created_at": p.created_at.isoformat(),
+            "extraction": extra
+        })
+    return result
+
+
+@router.get("/products/{product_id}")
+async def get_product_by_id(product_id: str, db: Session = Depends(get_db)):
+    """
+    Get a single product by ID.
+    """
+    p = db.query(Product).filter(Product.id == product_id).first()
+    if not p:
+        raise HTTPException(status_code=404, detail="Product not found.")
+    try:
+        extra = json.loads(p.extraction_json) if p.extraction_json else {}
+    except Exception:
+        extra = {}
+    return {
+        "id": p.id,
+        "source_type": p.source_type,
+        "source_reference": p.source_reference,
+        "status": p.status,
+        "created_at": p.created_at.isoformat(),
+        "extraction": extra
+    }
+
+

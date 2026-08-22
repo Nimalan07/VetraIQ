@@ -13,6 +13,7 @@ import ModeIndicator from "../components/ModeIndicator";
 
 interface Props {
   onNavigate: (page: string) => void;
+  onSelectProduct?: (productId: string) => void;
 }
 
 interface DashboardStats {
@@ -32,6 +33,7 @@ interface DashboardStats {
 
 export default function Dashboard({
   onNavigate,
+  onSelectProduct,
 }: Props) {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -184,7 +186,8 @@ export default function Dashboard({
             stats?.recent_products.map((product) => (
               <div
                 key={product.id}
-                className="flex items-center justify-between p-5 hover:bg-white/[0.02]"
+                onClick={() => onSelectProduct?.(product.id)}
+                className="flex items-center justify-between p-5 hover:bg-white/[0.02] cursor-pointer transition hover:bg-white/[0.04]"
               >
 
                 <div>
