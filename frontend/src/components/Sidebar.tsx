@@ -4,8 +4,8 @@ import {
   Package,
   FileOutput,
   Settings,
-  Zap,
 } from "lucide-react";
+import logoImg from "../assets/logo.png";
 
 interface SidebarProps {
   active: string;
@@ -43,11 +43,9 @@ export default function Sidebar({
     <aside className="fixed left-0 top-0 h-screen w-64 border-r border-white/10 bg-[#090909] p-5">
 
       {/* Logo */}
-
       <div className="mb-10 flex items-center gap-3">
-
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl orange-gradient">
-          <Zap size={19} fill="white" />
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl overflow-hidden bg-black/20 border border-white/5">
+          <img src={logoImg} className="h-full w-full object-contain" alt="VetraIQ Logo" />
         </div>
 
         <div>
