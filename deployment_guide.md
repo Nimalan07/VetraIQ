@@ -32,7 +32,7 @@ VetraIQ is a decoupled full-stack application:
      *(This ensures the service runs using the pre-compiled high-quality Golden Dataset for demo uploads. It provides instantaneous, accurate, and cost-free responses for judges without requiring a heavy GPU instance for Ollama).*
    - `DATABASE_URL`: `sqlite:///./products.db`
 6. Click **Create Web Service**.
-7. Once the deployment finishes, copy the URL of your live backend (e.g., `https://vetraiq-backend.onrender.com`).
+7. Once the deployment finishes, copy the URL of your live backend: `https://vetraiq.onrender.com`.
 
 ---
 
@@ -51,7 +51,7 @@ VetraIQ is a decoupled full-stack application:
    - **Output Directory**: `dist`
 5. Expand the **Environment Variables** section and add:
    - **Key**: `VITE_API_URL`
-   - **Value**: `https://vetraiq-backend.onrender.com` *(Paste your Render backend URL)*
+   - **Value**: `https://vetraiq.onrender.com` *(Paste your Render backend URL)*
 6. Click **Deploy**.
 7. Vercel will compile your React app and provide a live URL (e.g., `https://vetraiq.vercel.app`).
 
