@@ -90,4 +90,9 @@ export const evaluateSubmission = async (
   return response.data;
 };
 
+export const getDashboardStats = async () => {
+  const response = await api.get("/api/process/dashboard/stats");
+  return response.data;
+};
+
 

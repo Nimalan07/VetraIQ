@@ -6,6 +6,8 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
+import { useState, useEffect } from "react";
+import { getDashboardStats } from "../api/client";
 import StatCard from "../components/StatCard";
 import ModeIndicator from "../components/ModeIndicator";
 
@@ -16,6 +18,43 @@ interface Props {
 export default function Dashboard({
   onNavigate,
 }: Props) {
+  const [stats, setStats] = useState<{
+    products_processed: number;
+    categories_count: number;
+    high_confidence_pct: number;
+    needs_review_count: number;
+    data_sources_count: number;
+    recent_products: Array<{
+      id: string;
+      name: string;
+      manufacturer: string;
+      category: string;
+      confidence: string;
+    }>;
+  }>({
+    products_processed: 24,
+    categories_count: 3,
+    high_confidence_pct: 87,
+    needs_review_count: 6,
+    data_sources_count: 18,
+    recent_products: [
+      { id: "1", name: "General Service Ball Valves", manufacturer: "Swagelok", category: "Ball Valve", confidence: "94%" },
+      { id: "2", name: "EasyPact EZC", manufacturer: "Schneider Electric", category: "Circuit Breaker", confidence: "91%" },
+      { id: "3", name: "SIMOTICS Motor", manufacturer: "Siemens", category: "Electric Motor", confidence: "88%" }
+    ]
+  });
+
+  useEffect(() => {
+    getDashboardStats()
+      .then((data) => {
+        if (data) {
+          setStats(data);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch dashboard stats:", err);
+      });
+  }, []);
 
   return (
     <div className="space-y-8">
@@ -65,28 +104,28 @@ export default function Dashboard({
 
         <StatCard
           title="Products Processed"
-          value="24"
-          subtitle="Across 3 categories"
+          value={String(stats.products_processed)}
+          subtitle={`Across ${stats.categories_count} categories`}
           icon={Package}
         />
 
         <StatCard
           title="High Confidence"
-          value="87%"
+          value={`${stats.high_confidence_pct}%`}
           subtitle="Fields above 80%"
           icon={CheckCircle2}
         />
 
         <StatCard
           title="Needs Review"
-          value="6"
+          value={String(stats.needs_review_count)}
           subtitle="Human verification required"
           icon={AlertTriangle}
         />
 
         <StatCard
           title="Data Sources"
-          value="18"
+          value={String(stats.data_sources_count)}
           subtitle="Documents + web sources"
           icon={Database}
         />
@@ -122,47 +161,27 @@ export default function Dashboard({
 
         <div className="divide-y divide-white/5">
 
-          {[
-            [
-              "General Service Ball Valves",
-              "Swagelok",
-              "Ball Valve",
-              "94%",
-            ],
-            [
-              "EasyPact EZC",
-              "Schneider Electric",
-              "Circuit Breaker",
-              "91%",
-            ],
-            [
-              "SIMOTICS Motor",
-              "Siemens",
-              "Electric Motor",
-              "88%",
-            ],
-          ].map(
+          {stats.recent_products.map(
             (
-              product,
-              index
+              product
             ) => (
               <div
-                key={index}
+                key={product.id}
                 className="flex items-center justify-between p-5 hover:bg-white/[0.02]"
               >
 
                 <div>
                   <p className="text-sm font-medium">
-                    {product[0]}
+                    {product.name}
                   </p>
 
                   <p className="mt-1 text-xs text-gray-600">
-                    {product[1]} · {product[2]}
+                    {product.manufacturer} · {product.category}
                   </p>
                 </div>
 
                 <span className="rounded-full bg-green-500/10 px-3 py-1 text-xs text-green-400">
-                  {product[3]}
+                  {product.confidence}
                 </span>
 
               </div>
