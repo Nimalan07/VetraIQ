@@ -15,36 +15,29 @@ interface Props {
   onNavigate: (page: string) => void;
 }
 
+interface DashboardStats {
+  products_processed: number;
+  categories_count: number;
+  high_confidence_pct: number;
+  needs_review_count: number;
+  data_sources_count: number;
+  recent_products: Array<{
+    id: string;
+    name: string;
+    manufacturer: string;
+    category: string;
+    confidence: string;
+  }>;
+}
+
 export default function Dashboard({
   onNavigate,
 }: Props) {
-  const [stats, setStats] = useState<{
-    products_processed: number;
-    categories_count: number;
-    high_confidence_pct: number;
-    needs_review_count: number;
-    data_sources_count: number;
-    recent_products: Array<{
-      id: string;
-      name: string;
-      manufacturer: string;
-      category: string;
-      confidence: string;
-    }>;
-  }>({
-    products_processed: 24,
-    categories_count: 3,
-    high_confidence_pct: 87,
-    needs_review_count: 6,
-    data_sources_count: 18,
-    recent_products: [
-      { id: "1", name: "General Service Ball Valves", manufacturer: "Swagelok", category: "Ball Valve", confidence: "94%" },
-      { id: "2", name: "EasyPact EZC", manufacturer: "Schneider Electric", category: "Circuit Breaker", confidence: "91%" },
-      { id: "3", name: "SIMOTICS Motor", manufacturer: "Siemens", category: "Electric Motor", confidence: "88%" }
-    ]
-  });
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setIsLoading(true);
     getDashboardStats()
       .then((data) => {
         if (data) {
@@ -53,6 +46,9 @@ export default function Dashboard({
       })
       .catch((err) => {
         console.error("Failed to fetch dashboard stats:", err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
@@ -101,35 +97,47 @@ export default function Dashboard({
       {/* Stats */}
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {isLoading ? (
+          <>
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="glass rounded-xl p-5 border border-white/5 animate-pulse min-h-[120px] flex flex-col justify-between">
+                <div className="h-4 bg-white/10 rounded w-2/3" />
+                <div className="h-8 bg-white/10 rounded w-1/2 my-2" />
+                <div className="h-3 bg-white/10 rounded w-3/4" />
+              </div>
+            ))}
+          </>
+        ) : (
+          <>
+            <StatCard
+              title="Products Processed"
+              value={String(stats?.products_processed ?? 0)}
+              subtitle={`Across ${stats?.categories_count ?? 0} categories`}
+              icon={Package}
+            />
 
-        <StatCard
-          title="Products Processed"
-          value={String(stats.products_processed)}
-          subtitle={`Across ${stats.categories_count} categories`}
-          icon={Package}
-        />
+            <StatCard
+              title="High Confidence"
+              value={`${stats?.high_confidence_pct ?? 0}%`}
+              subtitle="Fields above 80%"
+              icon={CheckCircle2}
+            />
 
-        <StatCard
-          title="High Confidence"
-          value={`${stats.high_confidence_pct}%`}
-          subtitle="Fields above 80%"
-          icon={CheckCircle2}
-        />
+            <StatCard
+              title="Needs Review"
+              value={String(stats?.needs_review_count ?? 0)}
+              subtitle="Human verification required"
+              icon={AlertTriangle}
+            />
 
-        <StatCard
-          title="Needs Review"
-          value={String(stats.needs_review_count)}
-          subtitle="Human verification required"
-          icon={AlertTriangle}
-        />
-
-        <StatCard
-          title="Data Sources"
-          value={String(stats.data_sources_count)}
-          subtitle="Documents + web sources"
-          icon={Database}
-        />
-
+            <StatCard
+              title="Data Sources"
+              value={String(stats?.data_sources_count ?? 0)}
+              subtitle="Documents + web sources"
+              icon={Database}
+            />
+          </>
+        )}
       </section>
 
       {/* Recent activity */}
@@ -160,11 +168,20 @@ export default function Dashboard({
         </div>
 
         <div className="divide-y divide-white/5">
-
-          {stats.recent_products.map(
-            (
-              product
-            ) => (
+          {isLoading ? (
+            <>
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center justify-between p-5 animate-pulse">
+                  <div className="space-y-2 w-1/2">
+                    <div className="h-4 bg-white/10 rounded w-3/4" />
+                    <div className="h-3 bg-white/10 rounded w-1/2" />
+                  </div>
+                  <div className="h-6 bg-white/10 rounded-full w-12" />
+                </div>
+              ))}
+            </>
+          ) : (
+            stats?.recent_products.map((product) => (
               <div
                 key={product.id}
                 className="flex items-center justify-between p-5 hover:bg-white/[0.02]"
@@ -185,9 +202,8 @@ export default function Dashboard({
                 </span>
 
               </div>
-            )
+            ))
           )}
-
         </div>
 
       </section>
